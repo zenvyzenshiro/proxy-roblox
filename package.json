@@ -1,7 +1,7 @@
 {
   "name": "roblox-proxy-tako",
   "version": "1.0.0",
-  "description": "Proxy server for Tako Leaderboard on Roblox",
+  "description": "Proxy server for Custom Leaderboard",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
