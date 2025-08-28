@@ -11,42 +11,34 @@ app.use(cors());
 
 // Ini adalah endpoint atau alamat yang akan kita panggil dari Roblox
 app.get('/getLeaderboard', async (req, res) => {
-  // URL leaderboard Tako yang spesifik
-  const targetUrl = "https://tako.id/overlay/leaderboard?overlay_key=clwf4nasl01iztom7cgffbwzo";
-
-  console.log("Menerima permintaan untuk leaderboard Tako...");
+  // URL ini mengarah ke Bin privatmu di JSONBin menggunakan Bin ID yang kamu berikan
+  const targetUrl = "https://api.jsonbin.io/v3/b/68b009b7ae596e708fd9cc60/latest";
+  
+  console.log("Menerima permintaan untuk leaderboard custom (privat)...");
 
   try {
-    // Server kita mengambil data dari URL Tako
-    // PENAMBAHAN PENTING ADA DI BAGIAN 'headers'
+    // Mengambil data dengan menyertakan Kunci API Rahasia (X-Master-Key) di header
     const response = await axios.get(targetUrl, {
       timeout: 15000, // Timeout 15 detik
       headers: {
-        // Ini membuat permintaan kita terlihat seperti berasal dari browser Chrome di Windows
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
+        'X-Master-Key': '$2a$10$OItjJ4JteLcqXteWJ4JRTuSI7ZcMLA27MCqneBAsu/gcXWspKykrW'
       }
     });
-
-    // Cek jika data yang diterima bukan object (kemungkinan HTML)
-    if (typeof response.data !== 'object') {
-        console.error("Gagal mendapatkan JSON, Tako mengirimkan tipe data lain.");
-        return res.status(502).json({ error: "Bad Gateway: Gagal mendapatkan data JSON dari server target." });
-    }
-
-    console.log("Berhasil mendapatkan data dari Tako, mengirimkan ke Roblox.");
-    // Kirimkan data yang didapat kembali ke Roblox
+    
+    console.log("Berhasil mendapatkan data dari Bin privat.");
+    // Kirimkan kembali data yang didapat
     res.json(response.data);
 
   } catch (error) {
     // Jika terjadi error saat mengambil data
-    console.error("Gagal mengambil data dari Tako:", error.message);
-    res.status(500).json({ error: "Gagal mengambil data dari server Tako." });
+    console.error("Gagal mengambil data dari JSONBin:", error.message);
+    res.status(500).json({ error: "Gagal mengambil data dari JSONBin." });
   }
 });
 
 // Endpoint untuk cek kesehatan server
 app.get('/', (req, res) => {
-  res.send('Proxy server untuk Roblox Tako aktif!');
+  res.send('Proxy server untuk Leaderboard Custom aktif!');
 });
 
 // Menjalankan server
