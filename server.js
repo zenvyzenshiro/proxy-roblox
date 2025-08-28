@@ -33,7 +33,7 @@ app.get('/getLeaderboard', async (req, res) => {
   }
 });
 
-// Endpoint untuk cek kesehatan server
+// Endpoint untuk cek kesehatan server (supaya halaman utama tidak error)
 app.get('/', (req, res) => {
   res.send('Proxy server untuk Roblox Tako aktif!');
 });
